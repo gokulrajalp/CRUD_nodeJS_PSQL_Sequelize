@@ -1,0 +1,11 @@
+html
+    head
+        title="User Details"
+    body 
+        h1="Users Information"
+        button(id="userButton") Go to /user
+
+script.
+  document.getElementById('userButton').onclick = function() {
+    window.location.href = '/user';
+  };

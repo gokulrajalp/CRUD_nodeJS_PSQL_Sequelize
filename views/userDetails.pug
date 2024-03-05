@@ -1,0 +1,53 @@
+doctype html
+html
+  head
+    title User List
+    link(rel='stylesheet', href='https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css')
+  body
+    h1 User List
+    button(id='addUserButton') Add User
+
+    table#userTable
+      thead
+        tr
+          th ID
+          th Name
+          th Email
+          th Role
+          th Actions
+
+      tbody
+
+    script(src='https://code.jquery.com/jquery-3.6.0.min.js') 
+    script(src='https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js') 
+    script.
+      $(document).ready(function() {
+        var dataTable = $('#userTable').DataTable({
+          data: !{JSON.stringify(users)}, 
+          columns: [
+            { data: 'id' },
+            { data: 'name' },
+            { data: 'email' },
+            { data: 'role' },
+            {
+              data: null,
+              render: function(data, type, row) {
+                return '<button onclick="editUser(' + row.id + ')">Edit</button>' +
+                       '<button onclick="deleteUser(' + row.id + ')">Delete</button>';
+              }
+            }
+          ]
+        });
+
+        $('#addUserButton').click(function() {
+          window.location.href = '/add'; 
+        });
+
+        window.editUser = function(userId) {
+          window.location.href = '/edit/' + userId;
+        };
+
+        window.deleteUser = function(userId) {
+          window.location.href = '/delete/' + userId;
+        };
+      });
